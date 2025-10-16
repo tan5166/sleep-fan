@@ -11,16 +11,17 @@ export function ThemedView({
   style,
   lightColor,
   darkColor,
+  className,
   ...rest
 }: ThemedViewProps) {
-  const { className, color } = useThemeColor(
+  const { className: classColor, color } = useThemeColor(
     { light: lightColor, dark: darkColor },
     "background"
   );
 
   return (
     <View
-      className={className}
+      className={[classColor, className].filter(Boolean).join(" ")}
       style={[color ? { backgroundColor: color } : null, style]}
       {...rest}
     />

@@ -10,8 +10,8 @@ export type ThemedTextProps = TextProps & {
 };
 
 const typeStyles = {
-  title: "text-3xl font-bold",
-  subtitle: "text-xl font-bold",
+  title: "text-2xl font-semibold",
+  subtitle: "text-base",
   default: "text-base",
   defaultSemiBold: "text-base font-semibold",
 } as const;
@@ -21,16 +21,19 @@ export function ThemedText({
   lightColor,
   darkColor,
   type = "default",
+  className,
   ...rest
 }: ThemedTextProps) {
-  const { className, color } = useThemeColor(
+  const { className: classColor, color } = useThemeColor(
     { light: lightColor, dark: darkColor },
     "text"
   );
 
   return (
     <Text
-      className={[typeStyles[type], className].filter(Boolean).join(" ")}
+      className={[typeStyles[type], classColor, className]
+        .filter(Boolean)
+        .join(" ")}
       style={[color ? { color } : null, style]}
       {...rest}
     />
