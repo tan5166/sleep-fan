@@ -6,6 +6,7 @@ export const ThemeColors = {
   light: {
     text: "text-slate-900",
     textSecondary: "text-slate-500",
+    textTertiary: "text-slate-400",
     tint: tintColorLight, // used to emphasize some elements
     icon: "text-slate-900", // used for non-tab icon
     background: "bg-white",
@@ -15,6 +16,7 @@ export const ThemeColors = {
   dark: {
     text: "text-slate-200",
     textSecondary: "text-slate-400",
+    textTertiary: "text-slate-600",
     tint: tintColorDark,
     icon: "text-slate-400",
     background: "bg-slate-950",

@@ -7,12 +7,12 @@ export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
   type?: "default" | "title" | "defaultMedium" | "subtitle" | "description";
-  colorType?: "text" | "textSecondary" | "icon" | "tint";
+  colorType?: "text" | "textSecondary" | "textTertiary" | "icon" | "tint";
 };
 
 const typeStyles = {
   title: "text-2xl font-semibold",
-  subtitle: "text-base",
+  subtitle: "text-sm",
   default: "text-base",
   defaultMedium: "text-base font-medium",
   description: "text-xs",
