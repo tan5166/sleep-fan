@@ -5,6 +5,7 @@ import { useThemeColor } from "@/hooks/useColor";
 export type ThemedViewProps = ViewProps & {
   lightColor?: string;
   darkColor?: string;
+  colorType?: "background" | "sectionBackground" | "iconBackground";
 };
 
 export function ThemedView({
@@ -12,11 +13,12 @@ export function ThemedView({
   lightColor,
   darkColor,
   className,
+  colorType = "background",
   ...rest
 }: ThemedViewProps) {
   const { className: classColor, color } = useThemeColor(
     { light: lightColor, dark: darkColor },
-    "background"
+    colorType
   );
 
   return (
