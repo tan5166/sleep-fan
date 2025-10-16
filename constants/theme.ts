@@ -5,15 +5,17 @@ const tintColorDark = "#fff";
 export const ThemeColors = {
   light: {
     text: "text-slate-900",
+    textSecondary: "text-slate-500",
     background: "bg-white",
     tint: tintColorLight, // used to emphasize some elements
     icon: "text-slate-900", // used for non-tab icon
   },
   dark: {
     text: "text-slate-200",
+    textSecondary: "text-slate-400",
     background: "bg-slate-950",
     tint: tintColorDark,
-    icon: "text-slate-200",
+    icon: "text-slate-400",
   },
 };
 

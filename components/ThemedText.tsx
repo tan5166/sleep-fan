@@ -6,14 +6,16 @@ import { useThemeColor } from "@/hooks/useColor";
 export type ThemedTextProps = TextProps & {
   lightColor?: string;
   darkColor?: string;
-  type?: "default" | "title" | "defaultSemiBold" | "subtitle";
+  type?: "default" | "title" | "defaultMedium" | "subtitle" | "description";
+  colorType?: "text" | "textSecondary" | "icon" | "tint";
 };
 
 const typeStyles = {
   title: "text-2xl font-semibold",
   subtitle: "text-base",
   default: "text-base",
-  defaultSemiBold: "text-base font-semibold",
+  defaultMedium: "text-base font-medium",
+  description: "text-xs",
 } as const;
 
 export function ThemedText({
@@ -21,12 +23,13 @@ export function ThemedText({
   lightColor,
   darkColor,
   type = "default",
+  colorType = "text",
   className,
   ...rest
 }: ThemedTextProps) {
   const { className: classColor, color } = useThemeColor(
     { light: lightColor, dark: darkColor },
-    "text"
+    colorType
   );
 
   return (
