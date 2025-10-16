@@ -2,7 +2,7 @@ import { TabButton } from "@/components/ui/TabButton";
 import { useTabColor, useThemeColor } from "@/hooks/useColor";
 import { TabList, Tabs, TabSlot, TabTrigger } from "expo-router/ui";
 import React from "react";
-import { ScrollView, View } from "react-native";
+import { View } from "react-native";
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -17,10 +17,7 @@ export default function TabLayout() {
     <SafeAreaView className={`flex-1 ${backgroundColor}`} edges={["top"]}>
       <Tabs>
         <View className="flex-1 px-5">
-          <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-            <View className="pt-4" />
-            <TabSlot />
-          </ScrollView>
+          <TabSlot />
         </View>
         <TabList
           style={{

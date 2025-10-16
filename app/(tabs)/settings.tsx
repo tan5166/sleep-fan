@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/Switch";
 import { settingsConfig } from "@/config/settings.config";
 import { useSettings } from "@/hooks/useSettings";
 import { Ionicons } from "@expo/vector-icons";
-import { View } from "react-native";
+import { ScrollView, View } from "react-native";
 
 /**
  * Settings Screen
@@ -61,52 +61,55 @@ export default function SettingsScreen() {
   };
 
   return (
-    <View className="gap-5">
-      {/* Header */}
-      <View className="gap-2">
-        <ThemedText type="title">Settings</ThemedText>
-        <ThemedText type="subtitle" colorType="textSecondary">
-          Personalize your app experience
-        </ThemedText>
-      </View>
+    <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
+      <View className="pt-4" />
+      <View className="gap-5 mb-5">
+        {/* Header */}
+        <View className="gap-2">
+          <ThemedText type="title">Settings</ThemedText>
+          <ThemedText type="subtitle" colorType="textSecondary">
+            Personalize your app experience
+          </ThemedText>
+        </View>
 
-      {/* Settings Sections */}
-      <View className="gap-5">
-        {settingsConfig.map((section) => (
-          <SettingSection key={section.title} title={section.title}>
-            {section.items.map((item, index) => (
-              <View key={item.id}>
-                <SettingItem
-                  icon={renderIcon(item.id)}
-                  label={item.label}
-                  description={item.description}
-                  rightComponent={
-                    item.type === "switch" ? (
-                      <Switch
-                        checked={getSettingValue(item.id)}
-                        onCheckedChange={getSettingHandler(item.id)!}
-                      />
-                    ) : undefined
-                  }
-                />
-                {/* Add separator between items except for the last one */}
-                {index < section.items.length - 1 && <Separator />}
-              </View>
-            ))}
-          </SettingSection>
-        ))}
-      </View>
+        {/* Settings Sections */}
+        <View className="gap-5">
+          {settingsConfig.map((section) => (
+            <SettingSection key={section.title} title={section.title}>
+              {section.items.map((item, index) => (
+                <View key={item.id}>
+                  <SettingItem
+                    icon={renderIcon(item.id)}
+                    label={item.label}
+                    description={item.description}
+                    rightComponent={
+                      item.type === "switch" ? (
+                        <Switch
+                          checked={getSettingValue(item.id)}
+                          onCheckedChange={getSettingHandler(item.id)!}
+                        />
+                      ) : undefined
+                    }
+                  />
+                  {/* Add separator between items except for the last one */}
+                  {index < section.items.length - 1 && <Separator />}
+                </View>
+              ))}
+            </SettingSection>
+          ))}
+        </View>
 
-      {/* Footer */}
-      <View>
-        <ThemedText
-          type="description"
-          colorType="textTertiary"
-          className="text-center"
-        >
-          A carefully crafted white noise app
-        </ThemedText>
+        {/* Footer */}
+        <View>
+          <ThemedText
+            type="description"
+            colorType="textTertiary"
+            className="text-center"
+          >
+            A carefully crafted white noise app
+          </ThemedText>
+        </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
