@@ -27,12 +27,7 @@ function TabButtonBase(
             .filter(Boolean)
             .join(" ")}
         >
-          <TabIcon
-            name={icon}
-            size={26}
-            className={current.color}
-            isFocused={isFocused}
-          />
+          <TabIcon name={icon} size={26} className={current.color} />
         </View>
       </View>
     </Pressable>

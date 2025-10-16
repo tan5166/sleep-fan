@@ -29,7 +29,10 @@ export default function TabLayout() {
             .join(" ")}
         >
           <TabTrigger name="index" href="/" asChild>
-            <TabButton icon={"house"} />
+            <TabButton icon={"fan"} />
+          </TabTrigger>
+          <TabTrigger name="background" href="/background" asChild>
+            <TabButton icon={"layer group"} />
           </TabTrigger>
           <TabTrigger name="settings" href="/settings" asChild>
             <TabButton icon={"gear"} />

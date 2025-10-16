@@ -1,8 +1,8 @@
-import Ionicons from "@expo/vector-icons/Ionicons";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import { cssInterop } from "nativewind";
 import { type TextProps } from "react-native";
 
-cssInterop(Ionicons, {
+cssInterop(FontAwesome6, {
   className: {
     target: "style",
     nativeStyleToProp: { color: true },
@@ -10,33 +10,17 @@ cssInterop(Ionicons, {
 });
 
 const MAPPING = {
-  house: {
-    default: "home-outline",
-    focused: "home",
+  fan: {
+    default: "fan",
+    focused: "fan",
   },
-  book: {
-    default: "book-outline",
-    focused: "book",
-  },
-  person: {
-    default: "person-outline",
-    focused: "person",
+  "layer group": {
+    default: "layer-group",
+    focused: "layer-group",
   },
   gear: {
-    default: "settings-outline",
-    focused: "settings",
-  },
-  star: {
-    default: "star-outline",
-    focused: "star",
-  },
-  statistics: {
-    default: "bar-chart-outline",
-    focused: "bar-chart",
-  },
-  flash: {
-    default: "flash-outline",
-    focused: "flash",
+    default: "gear",
+    focused: "gear",
   },
 } as const;
 
@@ -45,17 +29,10 @@ export type TabIconName = keyof typeof MAPPING;
 export type TabIconProps = TextProps & {
   name: TabIconName;
   size?: number;
-  isFocused?: boolean;
 };
 
-export function TabIcon({
-  name,
-  size = 24,
-  style,
-  isFocused = false,
-  ...rest
-}: TabIconProps) {
-  const iconName = isFocused ? MAPPING[name].focused : MAPPING[name].default;
+export function TabIcon({ name, size = 24, style, ...rest }: TabIconProps) {
+  const iconName = MAPPING[name].default;
 
-  return <Ionicons size={size} name={iconName} style={style} {...rest} />;
+  return <FontAwesome6 size={size} name={iconName} style={style} {...rest} />;
 }
