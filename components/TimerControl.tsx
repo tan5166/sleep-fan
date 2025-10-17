@@ -33,7 +33,7 @@ export function TimerControl({ timer, onTimerChange }: TimerControlProps) {
               }
               className={`flex-1 py-2.5 px-3 rounded-lg border-2 items-center ${
                 isActive
-                  ? "bg-slate-900 dark:bg-slate-200 border-slate-900 dark:border-slate-200"
+                  ? "bg-slate-900 dark:bg-white border-slate-900 dark:border-white"
                   : "bg-transparent border-slate-200 dark:border-slate-700"
               }`}
               activeOpacity={0.7}

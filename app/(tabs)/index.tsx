@@ -1,4 +1,5 @@
 import { FanVisualizer } from "@/components/FanVisualizer";
+import { PlayControl } from "@/components/PlayControl";
 import { SpeedControl } from "@/components/SpeedControl";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
@@ -8,7 +9,7 @@ import { useWhiteNoise } from "@/hooks/useWhiteNoise";
 import { Ionicons } from "@expo/vector-icons";
 import { useColorScheme } from "nativewind";
 import { useEffect, useState } from "react";
-import { ScrollView, TouchableOpacity, View } from "react-native";
+import { ScrollView, View } from "react-native";
 import Animated, { FadeInUp } from "react-native-reanimated";
 
 export default function HomeScreen() {
@@ -45,7 +46,6 @@ export default function HomeScreen() {
   useEffect(() => {
     // Only run timer if there's a timer set, time remaining, and music is playing
     if (timeRemaining === null || timeRemaining <= 0 || !isPlaying) return;
-    console.log("Timer effect1:", { timeRemaining });
     const interval = setInterval(() => {
       setTimeRemaining((prev) => {
         if (prev === null || prev <= 1) {
@@ -58,7 +58,7 @@ export default function HomeScreen() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [isPlaying, stopPlay]);
+  }, [timeRemaining, isPlaying, stopPlay]);
 
   const handleTimerSelect = (minutes: number | null) => {
     setTimer(minutes);
@@ -101,18 +101,7 @@ export default function HomeScreen() {
             entering={FadeInUp.delay(200)}
             className="items-center gap-2 mb-2"
           >
-            <TouchableOpacity
-              onPress={togglePlay}
-              className="w-16 h-16 rounded-full bg-slate-900 dark:bg-white items-center justify-center shadow-lg active:scale-95"
-              activeOpacity={0.8}
-            >
-              <Ionicons
-                name={isPlaying ? "pause" : "play"}
-                size={24}
-                color={colorScheme === "dark" ? "#0f172a" : "#ffffff"}
-                style={!isPlaying && { marginLeft: 4 }}
-              />
-            </TouchableOpacity>
+            <PlayControl isPlaying={isPlaying} togglePlay={togglePlay} />
             {/* Timer Display */}
             {timeRemaining !== null && (
               <Animated.View

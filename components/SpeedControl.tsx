@@ -28,7 +28,7 @@ const CONTAINER_PADDING = 4; // p-1 in Tailwind -> 4px
 const GAP = 8; // gap-2 in Tailwind -> 8px
 
 export function SpeedControl({ speed, onSpeedChange }: SpeedControlProps) {
-  const colorScheme = useColorScheme();
+  const colorScheme = useColorScheme() ?? "light";
 
   // 1. 使用 onLayout 动态获取宽度，而不是 useWindowDimensions
   // tabWidth 初始为 0，在布局计算后更新
@@ -79,7 +79,7 @@ export function SpeedControl({ speed, onSpeedChange }: SpeedControlProps) {
             animatedStyle,
             {
               width: tabWidth,
-              backgroundColor: colorScheme === "dark" ? "#e2e8f0" : "#0f172b", //slate-200: #e2e8f0, slate-900: #0f172b
+              backgroundColor: colorScheme === "light" ? "#0f172b" : "#fff", //white: #fff, slate-900: #0f172b
             },
           ]}
         />
