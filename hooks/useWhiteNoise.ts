@@ -1,4 +1,8 @@
-import { useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
+import {
+  setAudioModeAsync,
+  useAudioPlayer,
+  useAudioPlayerStatus,
+} from "expo-audio";
 import { useCallback, useEffect, useRef } from "react";
 
 interface UseWhiteNoiseReturn {
@@ -23,6 +27,20 @@ export function useWhiteNoise(): UseWhiteNoiseReturn {
   const currentVolume = useRef(0.7); // 初始音量 50%
 
   useEffect(() => {
+    // Set audio mode for background playback
+    (async () => {
+      try {
+        await setAudioModeAsync({
+          playsInSilentMode: true,
+          shouldPlayInBackground: true,
+          interruptionModeAndroid: "doNotMix",
+          interruptionMode: "doNotMix",
+        });
+      } catch (error) {
+        console.error("Error setting audio mode:", error);
+      }
+    })();
+
     player.loop = true;
     // 不在这里设置音量，让组件通过 setVolume 来控制
 
