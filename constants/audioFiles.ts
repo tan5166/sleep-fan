@@ -10,9 +10,9 @@ export const AUDIO_FILES: AudioFile[] = [
   {
     id: "rain",
     name: "Rain",
-    fileName: "rain-loop.wav",
+    fileName: "rain.wav",
     icon: "🌧️",
-    source: require("@/assets/audio/rain-loop.wav"),
+    source: require("@/assets/audio/rain.wav"),
   },
   {
     id: "sea",
@@ -29,32 +29,25 @@ export const AUDIO_FILES: AudioFile[] = [
     source: require("@/assets/audio/forest.wav"),
   },
   {
-    id: "water-bubble",
-    name: "Water Bubble",
-    fileName: "water-bubble.wav",
-    icon: "💧",
-    source: require("@/assets/audio/water-bubble.wav"),
+    id: "bubble",
+    name: "Bubble",
+    fileName: "bubble.wav",
+    icon: "🫧",
+    source: require("@/assets/audio/bubble.wav"),
   },
   {
     id: "fan-1",
-    name: "Fan 1",
+    name: "Default Fan",
     fileName: "fan-01.wav",
     icon: "💨",
     source: require("@/assets/audio/fan-01.wav"),
   },
   {
     id: "fan-2",
-    name: "Fan 2",
+    name: "Deep Fan",
     fileName: "fan-02.wav",
     icon: "🌀",
     source: require("@/assets/audio/fan-02.wav"),
-  },
-  {
-    id: "fan-3",
-    name: "Fan 3",
-    fileName: "fan-03.wav",
-    icon: "🌪️",
-    source: require("@/assets/audio/fan-03.wav"),
   },
 ];
 
