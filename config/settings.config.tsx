@@ -1,4 +1,5 @@
 // config/settings.config.tsx
+import { version } from "../package.json";
 
 export interface SettingItemConfig {
   /** Unique identifier */
@@ -40,27 +41,27 @@ export const settingsConfig: SettingSectionConfig[] = [
       },
     ],
   },
-  {
-    title: "Audio",
-    items: [
-      {
-        id: "auto-play",
-        icon: "volume-medium-outline",
-        label: "Auto Play",
-        description: "Automatically start playing when the app opens",
-        type: "switch",
-        defaultValue: false,
-      },
-      {
-        id: "notifications",
-        icon: "notifications-outline",
-        label: "Timer Notification",
-        description: "Send a notification when the timer ends",
-        type: "switch",
-        defaultValue: true,
-      },
-    ],
-  },
+  // {
+  //   title: "Audio",
+  //   items: [
+  //     {
+  //       id: "auto-play",
+  //       icon: "volume-medium-outline",
+  //       label: "Auto Play",
+  //       description: "Automatically start playing when the app opens",
+  //       type: "switch",
+  //       defaultValue: false,
+  //     },
+  //     {
+  //       id: "notifications",
+  //       icon: "notifications-outline",
+  //       label: "Timer Notification",
+  //       description: "Send a notification when the timer ends",
+  //       type: "switch",
+  //       defaultValue: true,
+  //     },
+  //   ],
+  // },
   {
     title: "About",
     items: [
@@ -68,7 +69,7 @@ export const settingsConfig: SettingSectionConfig[] = [
         id: "version",
         icon: "information-circle-outline",
         label: "Version",
-        description: "v1.0.0",
+        description: version,
         type: "info",
       },
       {
