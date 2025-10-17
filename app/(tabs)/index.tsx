@@ -4,40 +4,80 @@ import { SpeedControl } from "@/components/SpeedControl";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { VolumeControl } from "@/components/VolumeControl";
+import { getAudioById } from "@/constants/audioFiles";
 import { useWhiteNoise } from "@/hooks/useWhiteNoise";
-import { useEffect, useState } from "react";
+import { useAudioStore } from "@/store/audioStore";
+import { useEffect, useMemo } from "react";
 import { ScrollView, View } from "react-native";
 import Animated, { FadeInUp } from "react-native-reanimated";
 
 export default function HomeScreen() {
-  const [fanSpeed, setFanSpeed] = useState(1); // 0: low, 1: medium, 2: high
-  const [volume, setVolume] = useState(90);
-  // const [timer, setTimer] = useState<number | null>(null); // minutes
-  // const [timeRemaining, setTimeRemaining] = useState<number | null>(null); // seconds
+  const {
+    currentAudioId,
+    volume,
+    speed,
+    setVolume: setStoreVolume,
+    setSpeed: setStoreSpeed,
+    setIsPlaying,
+  } = useAudioStore();
+
+  // Get current audio source based on store state
+  const currentAudio = useMemo(
+    () => getAudioById(currentAudioId),
+    [currentAudioId]
+  );
+  const audioSource = useMemo(
+    () => (currentAudio ? currentAudio.source : null),
+    [currentAudio]
+  );
 
   const {
-    isPlaying,
+    isPlaying: audioIsPlaying,
     togglePlay,
-    stopPlay,
     setVolume: setAudioVolume,
-    setSpeed,
-  } = useWhiteNoise();
-  // const { colorScheme } = useColorScheme();
+    setSpeed: setAudioSpeed,
+    replaceAudio,
+  } = useWhiteNoise(audioSource);
+
+  // Sync audio playing state to store
+  useEffect(() => {
+    setIsPlaying(audioIsPlaying);
+  }, [audioIsPlaying, setIsPlaying]);
 
   // Initialize audio settings on mount
   useEffect(() => {
     setAudioVolume(volume);
-    setSpeed(fanSpeed);
+    setAudioSpeed(speed);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Update audio volume and fan speed
+  // Update audio when store values change
   useEffect(() => {
     setAudioVolume(volume);
-  }, [volume]);
+  }, [volume, setAudioVolume]);
 
   useEffect(() => {
-    setSpeed(fanSpeed);
-  }, [fanSpeed]);
+    setAudioSpeed(speed);
+  }, [speed, setAudioSpeed]);
+
+  // Replace audio when audio ID changes
+  useEffect(() => {
+    if (audioSource) {
+      replaceAudio(audioSource);
+    }
+    // Only depend on currentAudioId to avoid unnecessary replacements
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentAudioId]);
+
+  // Handle volume change from UI
+  const handleVolumeChange = (newVolume: number) => {
+    setStoreVolume(newVolume);
+  };
+
+  // Handle speed change from UI
+  const handleSpeedChange = (newSpeed: number) => {
+    setStoreSpeed(newSpeed);
+  };
 
   // Timer countdown - only starts when music is playing
   // useEffect(() => {
@@ -91,14 +131,14 @@ export default function HomeScreen() {
           </Animated.View>
 
           <Animated.View entering={FadeInUp.delay(100)}>
-            <FanVisualizer isPlaying={isPlaying} speed={fanSpeed} />
+            <FanVisualizer isPlaying={audioIsPlaying} speed={speed} />
           </Animated.View>
 
           <Animated.View
             entering={FadeInUp.delay(200)}
             className="items-center gap-2 mb-2"
           >
-            <PlayControl isPlaying={isPlaying} togglePlay={togglePlay} />
+            <PlayControl isPlaying={audioIsPlaying} togglePlay={togglePlay} />
             {/* Timer Display */}
             {/* {timeRemaining !== null && (
               <Animated.View
@@ -118,11 +158,11 @@ export default function HomeScreen() {
           </Animated.View>
 
           <Animated.View entering={FadeInUp.delay(300)} className="mb-4">
-            <SpeedControl speed={fanSpeed} onSpeedChange={setFanSpeed} />
+            <SpeedControl speed={speed} onSpeedChange={handleSpeedChange} />
           </Animated.View>
 
           <Animated.View entering={FadeInUp.delay(400)} className="gap-4">
-            <VolumeControl volume={volume} onVolumeChange={setVolume} />
+            <VolumeControl volume={volume} onVolumeChange={handleVolumeChange} />
             {/* <TimerControl timer={timer} onTimerChange={handleTimerSelect} /> */}
           </Animated.View>
         </View>

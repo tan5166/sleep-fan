@@ -11,16 +11,16 @@ interface UseWhiteNoiseReturn {
   stopPlay: () => void;
   setVolume: (volume: number) => void;
   setSpeed: (speed: number) => void;
+  replaceAudio: (newSource: any) => Promise<void>;
 }
-
-const audioSource = require("@/assets/audio/rain-01.mp3");
 
 /**
  * Custom hook for managing white noise audio playback
+ * @param initialSource - Initial audio source to load
  * @returns Audio control functions and playing state
  */
-export function useWhiteNoise(): UseWhiteNoiseReturn {
-  const player = useAudioPlayer(audioSource);
+export function useWhiteNoise(initialSource: any): UseWhiteNoiseReturn {
+  const player = useAudioPlayer(initialSource);
 
   const status = useAudioPlayerStatus(player);
   const currentSpeed = useRef(1);
@@ -102,12 +102,42 @@ export function useWhiteNoise(): UseWhiteNoiseReturn {
     [player]
   );
 
+  const replaceAudio = useCallback(
+    async (newSource: any) => {
+      try {
+        const wasPlaying = status.playing;
+        const currentVol = currentVolume.current;
+        const currentSpd = currentSpeed.current;
+
+        // Stop current playback
+        player.pause();
+
+        // Replace the audio source
+        player.replace(newSource);
+
+        // Restore settings
+        player.loop = true;
+        player.volume = currentVol;
+        player.setPlaybackRate(getPlaybackRate(currentSpd), "high");
+
+        // Resume playback if it was playing
+        if (wasPlaying) {
+          player.play();
+        }
+      } catch (error) {
+        console.error("Error replacing audio:", error);
+      }
+    },
+    [player, status.playing]
+  );
+
   return {
     isPlaying: status.playing,
     togglePlay,
     stopPlay,
     setVolume,
     setSpeed,
+    replaceAudio,
   };
 }
 

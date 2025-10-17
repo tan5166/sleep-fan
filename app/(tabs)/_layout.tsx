@@ -31,7 +31,7 @@ export default function TabLayout() {
           <TabTrigger name="index" href="/" asChild>
             <TabButton icon={"fan"} />
           </TabTrigger>
-          <TabTrigger name="background" href="/background" asChild>
+          <TabTrigger name="sound" href="/sound" asChild>
             <TabButton icon={"layer group"} />
           </TabTrigger>
           <TabTrigger name="settings" href="/settings" asChild>
