@@ -117,6 +117,6 @@ export function useWhiteNoise(): UseWhiteNoiseReturn {
  * @returns Playback rate
  */
 function getPlaybackRate(speed: number): number {
-  const rates = [0.8, 1.0, 1.2]; // Low, medium, high speeds
+  const rates = [0.9, 1.0, 1.1]; // Low, medium, high speeds
   return rates[speed] ?? 1.0;
 }
