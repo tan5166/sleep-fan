@@ -17,7 +17,7 @@ export default function SoundScreen() {
       showsVerticalScrollIndicator={false}
       contentContainerStyle={{ paddingTop: 16, paddingBottom: 20 }}
     >
-      <View className="gap-5 mb-5">
+      <View className="gap-5">
         <View className="gap-2">
           <ThemedText type="title">Select Sound</ThemedText>
           <ThemedText type="subtitle" colorType="textSecondary">

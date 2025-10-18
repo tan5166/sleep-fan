@@ -61,9 +61,12 @@ export default function SettingsScreen() {
   };
 
   return (
-    <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-      <View className="pt-4" />
-      <View className="gap-5 mb-5">
+    <ScrollView
+      className="flex-1"
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingTop: 16, paddingBottom: 20 }}
+    >
+      <View className="gap-5">
         {/* Header */}
         <View className="gap-2">
           <ThemedText type="title">Settings</ThemedText>
