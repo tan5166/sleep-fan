@@ -11,9 +11,11 @@ export interface SettingItemConfig {
   /** Description text */
   description: string;
   /** Type of setting item */
-  type: "switch" | "info";
+  type: "switch" | "info" | "link";
   /** Default value for switch items */
   defaultValue?: boolean;
+  /** URL for link items (supports http/https/mailto) */
+  url?: string;
 }
 
 export interface SettingSectionConfig {
@@ -42,6 +44,27 @@ export const settingsConfig: SettingSectionConfig[] = [
     ],
   },
   {
+    title: "Feedback",
+    items: [
+      {
+        id: "feedback",
+        icon: "information-circle-outline",
+        label: "Feedback",
+        description: "Tell us what you think or leave a review",
+        type: "link",
+        url: "https://example.com/feedback",
+      },
+      {
+        id: "suggest-feature",
+        icon: "information-circle-outline",
+        label: "Suggest a Feature",
+        description: "Submit your idea via Google Form",
+        type: "link",
+        url: "https://forms.gle/FnrhyC7u92yH23sd6",
+      },
+    ],
+  },
+  {
     title: "About",
     items: [
       {
@@ -52,11 +75,12 @@ export const settingsConfig: SettingSectionConfig[] = [
         type: "info",
       },
       {
-        id: "support",
+        id: "contact-us",
         icon: "heart-outline",
-        label: "Support Us",
-        description: "Thank you for your support",
-        type: "info",
+        label: "Contact Us",
+        description: "Click to write us an email",
+        type: "link",
+        url: "mailto:tansy.apps@gmail.com",
       },
     ],
   },

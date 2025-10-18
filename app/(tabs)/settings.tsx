@@ -7,7 +7,7 @@ import { Switch } from "@/components/ui/Switch";
 import { settingsConfig } from "@/constants/settingsConfig";
 import { useSettings } from "@/hooks/useSettings";
 import { Ionicons } from "@expo/vector-icons";
-import { ScrollView, View } from "react-native";
+import { Linking, ScrollView, View } from "react-native";
 
 /**
  * Settings Screen
@@ -29,6 +29,15 @@ export default function SettingsScreen() {
   };
 
   /**
+   * Handle link opening for link-type settings
+   */
+  const handleLinkPress = (url: string) => {
+    Linking.openURL(url).catch((err) =>
+      console.error("Failed to open URL:", err)
+    );
+  };
+
+  /**
    * Get the current value for switch settings
    */
   const getSettingValue = (id: string): boolean => {
@@ -47,9 +56,11 @@ export default function SettingsScreen() {
     const iconName = settingsConfig
       .flatMap((section) => section.items)
       .find((item) => item.id === id)?.icon;
-    return ({ size = 20 }: { size?: number }) => (
+    const IconComponent = ({ size = 20 }: { size?: number }) => (
       <Ionicons name={iconName as any} size={size} />
     );
+    IconComponent.displayName = `Icon-${id}`;
+    return IconComponent;
   };
 
   return (
@@ -77,12 +88,22 @@ export default function SettingsScreen() {
                     icon={renderIcon(item.id)}
                     label={item.label}
                     description={item.description}
+                    onPress={
+                      item.type === "link" && item.url
+                        ? () => handleLinkPress(item.url!)
+                        : undefined
+                    }
                     rightComponent={
                       item.type === "switch" ? (
                         <Switch
                           checked={getSettingValue(item.id)}
                           onCheckedChange={getSettingHandler(item.id)!}
+                          className="ml-2"
                         />
+                      ) : item.type === "link" ? (
+                        <ThemedText colorType="icon" className="ml-2">
+                          <Ionicons name="chevron-forward" size={20} />
+                        </ThemedText>
                       ) : undefined
                     }
                   />
