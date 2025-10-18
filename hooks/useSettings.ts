@@ -1,5 +1,6 @@
 // hooks/useSettings.ts
-import { useState, useCallback } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useState, useCallback, useEffect } from "react";
 import { useColorScheme } from "nativewind";
 
 export interface SettingsState {
@@ -21,6 +22,11 @@ export function useSettings() {
     notifications: true,
   });
 
+  // Sync theme state with colorScheme changes
+  useEffect(() => {
+    setSettings((prev) => ({ ...prev, theme: colorScheme === "dark" }));
+  }, [colorScheme]);
+
   const updateSetting = useCallback(
     (key: keyof SettingsState, value: boolean) => {
       setSettings((prev) => ({ ...prev, [key]: value }));
@@ -33,10 +39,17 @@ export function useSettings() {
     [toggleColorScheme]
   );
 
-  const toggleTheme = useCallback(() => {
+  const toggleTheme = useCallback(async () => {
+    const newColorScheme = colorScheme === "dark" ? "light" : "dark";
     toggleColorScheme();
-    setSettings((prev) => ({ ...prev, theme: !prev.theme }));
-  }, [toggleColorScheme]);
+
+    // Save to AsyncStorage for persistence
+    try {
+      await AsyncStorage.setItem("@nativewind/theme", newColorScheme);
+    } catch (error) {
+      console.error("Failed to save theme to storage:", error);
+    }
+  }, [colorScheme, toggleColorScheme]);
 
   return {
     settings,
