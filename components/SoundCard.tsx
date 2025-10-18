@@ -1,7 +1,6 @@
 import { AudioFile } from "@/constants/audioFiles";
-import { useThemeColor } from "@/hooks/useColor";
-import React from "react";
-import { Pressable, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import { Pressable, Text } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -9,6 +8,8 @@ import Animated, {
   withSequence,
   withTiming,
 } from "react-native-reanimated";
+import { ThemedText } from "./ThemedText";
+import { ThemedView } from "./ThemedView";
 
 interface SoundCardProps {
   audioFile: AudioFile;
@@ -23,17 +24,13 @@ export function SoundCard({
   isPlaying,
   onPress,
 }: SoundCardProps) {
-  const { className: bgColor } = useThemeColor({}, "background");
-  const { className: textColor } = useThemeColor({}, "text");
-  const { className: tintColor } = useThemeColor({}, "tint");
-
   const opacity = useSharedValue(1);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isPlaying && isSelected) {
       opacity.value = withRepeat(
         withSequence(
-          withTiming(0.5, { duration: 800 }),
+          withTiming(0.4, { duration: 800 }),
           withTiming(1, { duration: 800 })
         ),
         -1,
@@ -49,52 +46,24 @@ export function SoundCard({
   }));
 
   return (
-    <Pressable
-      onPress={onPress}
-      className="mb-4"
-      style={({ pressed }) => ({
-        opacity: pressed ? 0.7 : 1,
-      })}
-    >
-      <View
-        className={`rounded-2xl p-6 ${bgColor} ${
-          isSelected ? `border-4 ${tintColor}` : "border-2 border-gray-300"
+    <Pressable onPress={onPress} className="mb-4">
+      <ThemedView
+        className={`rounded-2xl p-6 ${
+          isPlaying && isSelected
+            ? `border-4 border-green-400`
+            : isSelected
+            ? `border-4 border-slate-900 dark:border-white`
+            : "border-2 border-slate-200 dark:border-slate-700"
         }`}
-        style={{
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.1,
-          shadowRadius: 4,
-          elevation: 3,
-        }}
+        colorType="sectionBackground"
       >
-        <View className="items-center">
-          <Animated.Text
-            style={[animatedStyle, { fontSize: 48, marginBottom: 8 }]}
-          >
-            {audioFile.icon}
-          </Animated.Text>
-          <Text className={`text-lg font-semibold ${textColor}`}>
+        <Animated.View style={[animatedStyle]} className="items-center">
+          <Text className="text-4xl mb-2">{audioFile.icon}</Text>
+          <ThemedText className="text-xl font-semibold">
             {audioFile.name}
-          </Text>
-          {isPlaying && isSelected && (
-            <View className="mt-2 flex-row items-center gap-1">
-              <Animated.View
-                style={[
-                  animatedStyle,
-                  {
-                    width: 6,
-                    height: 6,
-                    borderRadius: 3,
-                    backgroundColor: "#10b981",
-                  },
-                ]}
-              />
-              <Text className="text-sm text-green-500">Playing</Text>
-            </View>
-          )}
-        </View>
-      </View>
+          </ThemedText>
+        </Animated.View>
+      </ThemedView>
     </Pressable>
   );
 }

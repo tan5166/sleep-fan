@@ -22,7 +22,7 @@ export const useAudioStore = create<AudioState>()(
   persist(
     (set, get) => ({
       // Initial state
-      currentAudioId: "rain",
+      currentAudioId: "fan-1",
       volume: 50,
       speed: 1.0,
       isPlaying: false,

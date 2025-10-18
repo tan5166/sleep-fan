@@ -1,6 +1,5 @@
 import { SoundCard } from "@/components/SoundCard";
 import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
 import { AUDIO_FILES } from "@/constants/audioFiles";
 import { useAudioStore } from "@/store/audioStore";
 import { ScrollView, View } from "react-native";
@@ -13,14 +12,19 @@ export default function SoundScreen() {
   };
 
   return (
-    <ThemedView className="flex-1">
-      <View className="mb-6">
-        <ThemedText type="title">Select Sound</ThemedText>
-      </View>
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 20 }}
-      >
+    <ScrollView
+      className="flex-1"
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{ paddingTop: 16, paddingBottom: 20 }}
+    >
+      <View className="gap-5 mb-5">
+        <View className="gap-2">
+          <ThemedText type="title">Select Sound</ThemedText>
+          <ThemedText type="subtitle" colorType="textSecondary">
+            Find the sound that soothes your mind
+          </ThemedText>
+        </View>
+
         <View className="flex-row flex-wrap justify-between">
           {AUDIO_FILES.map((audio) => (
             <View key={audio.id} style={{ width: "48%" }}>
@@ -33,7 +37,7 @@ export default function SoundScreen() {
             </View>
           ))}
         </View>
-      </ScrollView>
-    </ThemedView>
+      </View>
+    </ScrollView>
   );
 }
