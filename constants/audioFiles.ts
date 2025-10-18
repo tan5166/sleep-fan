@@ -31,6 +31,12 @@ export const AUDIO_FILES: AudioFile[] = [
     source: require("@/assets/audio/sea.wav"),
   },
   {
+    id: "campfire",
+    name: "Campfire",
+    icon: "🔥",
+    source: require("@/assets/audio/campfire.wav"),
+  },
+  {
     id: "forest",
     name: "Forest",
     icon: "🌲",
@@ -41,6 +47,30 @@ export const AUDIO_FILES: AudioFile[] = [
     name: "Bubble",
     icon: "🫧",
     source: require("@/assets/audio/bubble.wav"),
+  },
+  {
+    id: "wind",
+    name: "Wind",
+    icon: "🍃",
+    source: require("@/assets/audio/wind.wav"),
+  },
+  {
+    id: "cafe",
+    name: "Cafe",
+    icon: "☕️",
+    source: require("@/assets/audio/cafe.wav"),
+  },
+  {
+    id: "city-night",
+    name: "City Night",
+    icon: "🌃",
+    source: require("@/assets/audio/city-night.wav"),
+  },
+  {
+    id: "soft-brown",
+    name: "Soft Brown",
+    icon: "🟫",
+    source: require("@/assets/audio/soft-brown.wav"),
   },
 ];
 
