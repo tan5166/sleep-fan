@@ -4,7 +4,7 @@ import { SettingItem } from "@/components/settings/SettingItem";
 import { SettingSection } from "@/components/settings/SettingSection";
 import { Separator } from "@/components/ui/Separator";
 import { Switch } from "@/components/ui/Switch";
-import { settingsConfig } from "@/config/settings.config";
+import { settingsConfig } from "@/constants/settingsConfig";
 import { useSettings } from "@/hooks/useSettings";
 import { Ionicons } from "@expo/vector-icons";
 import { ScrollView, View } from "react-native";
