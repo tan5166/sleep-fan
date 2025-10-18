@@ -14,7 +14,7 @@ import { ScrollView, View } from "react-native";
  * Displays app settings organized in sections with a clean, modern UI
  */
 export default function SettingsScreen() {
-  const { settings, updateSetting, toggleTheme } = useSettings();
+  const { settings, toggleTheme } = useSettings();
 
   /**
    * Get the appropriate handler for each setting
@@ -23,10 +23,6 @@ export default function SettingsScreen() {
     switch (id) {
       case "theme":
         return toggleTheme;
-      case "auto-play":
-        return () => updateSetting("autoPlay", !settings.autoPlay);
-      case "notifications":
-        return () => updateSetting("notifications", !settings.notifications);
       default:
         return undefined;
     }
@@ -39,10 +35,6 @@ export default function SettingsScreen() {
     switch (id) {
       case "theme":
         return settings.theme;
-      case "auto-play":
-        return settings.autoPlay;
-      case "notifications":
-        return settings.notifications;
       default:
         return false;
     }

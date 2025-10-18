@@ -1,12 +1,10 @@
 // hooks/useSettings.ts
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState, useCallback, useEffect } from "react";
 import { useColorScheme } from "nativewind";
+import { useCallback, useEffect, useState } from "react";
 
 export interface SettingsState {
   theme: boolean; // true = dark, false = light
-  autoPlay: boolean;
-  notifications: boolean;
 }
 
 /**
@@ -18,8 +16,6 @@ export function useSettings() {
 
   const [settings, setSettings] = useState<SettingsState>({
     theme: colorScheme === "dark",
-    autoPlay: false,
-    notifications: true,
   });
 
   // Sync theme state with colorScheme changes
